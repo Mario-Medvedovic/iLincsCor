@@ -2,7 +2,8 @@
 .onLoad <- function(libname, pkgname){
   library(iLincsCor)
   x_datadir <- Sys.getenv("ILINCSCOR_DATADIR")
-  if (x_datadir == "") x_datadir <- "/opt/raid10/docker/ilincs_cor/data"
+  # if (x_datadir == "") x_datadir <- "/opt/raid10/docker/ilincs_cor/data"
+  if (x_datadir == "") x_datadir <- "/data"
 
   x_names <- list.dirs(path = x_datadir, full.names = FALSE, recursive = FALSE)
   x_dirs <- paste0(list.dirs(path = x_datadir, full.names = TRUE, recursive = FALSE), "/")
