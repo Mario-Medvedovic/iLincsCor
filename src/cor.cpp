@@ -87,11 +87,13 @@ t_output cor(t_input input, t_input input_weights, t_input_included input_includ
       block += n_rows;
    }
 
+   /*
    struct timeval end_time;
    double delta_time;
    gettimeofday(&end_time, NULL);
    delta_time = (double) (end_time.tv_sec - start_time.tv_sec);
    delta_time += (double) (end_time.tv_usec - start_time.tv_usec) / 1.0e+6;
+   */
 
    // cerr << "cor finished (" << delta_time << "s)" << endl;
    // cerr << "output: " << each_result[0] << ", " << each_result[1] << endl;

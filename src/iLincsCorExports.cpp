@@ -7,6 +7,7 @@ RCPP_MODULE(RcppIlincsCorEx) {
     class_<iLincsCor>("iLincsCor")
         .constructor<std::string>()
       .method("read_input", &iLincsCor::R_read_input)
+      .method("read_df", &iLincsCor::R_read_df)
       .method("cor", &iLincsCor::R_cor)
       .method("cor_map", &iLincsCor::R_cor_map)
 

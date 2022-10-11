@@ -24,6 +24,10 @@ public:
     // Exposed functions
     // int R_read_matrix(std::string prefix);
     List R_read_input(std::string input_filename);
+    List R_read_df(Rcpp::DataFrame const &input_df);
+                          // std::string col_gene_id,
+                          // std::string col_data,
+                          // std::string col_pvalues);
     Rcpp::NumericVector R_cor(List input, int workers);
     Rcpp::NumericVector R_cor_map(List input, int workers);
 };

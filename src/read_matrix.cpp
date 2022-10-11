@@ -173,11 +173,14 @@ int read_matrix(std::string prefix, t_data_matrix *data_matrix)
          cerr << "combined: " << data_matrix->combined[0] << ", " << data_matrix->combined[1] << "... " << endl;
    }
 */
+
+   /*
    struct timeval end_time;
    double delta_time;
    gettimeofday(&end_time, NULL);
    delta_time = (double) (end_time.tv_sec - start_time.tv_sec);
    delta_time += (double) (end_time.tv_usec - start_time.tv_usec) / 1.0e+6;
+   */
 
    // cerr << "Return read_matrix (" << delta_time << "s)" << endl;
    return 0;

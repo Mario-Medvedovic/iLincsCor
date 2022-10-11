@@ -105,6 +105,11 @@ t_output cor_map(t_input input, t_input input_weights, t_input_map input_map, t_
 int read_input(std::vector<int> gene_ids, std::string filename, t_input *input, t_input *input_weights, t_input_included *input_included, int *found_geneids,
                t_input *input_src, t_input *input_weights_src, t_input_map *input_map);
 
+int read_input_mem(std::vector<int> gene_ids,
+                   std::vector<int> *input_gene_ids, std::vector<double> *input_data, std::vector<double> *input_pvalues,
+                   t_input *input, t_input *input_weights, t_input_included *input_included, int *found_geneids,
+                   t_input *input_src, t_input *input_weights_src, t_input_map *input_map);
+
 // pthreads
 //===================================================================
 typedef struct

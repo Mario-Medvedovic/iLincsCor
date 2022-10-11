@@ -20,6 +20,70 @@ iLincsCor::iLincsCor(std::string prefix) {
    this->gene_ids = this->data_matrix.gene_ids;
 }
 
+List iLincsCor::R_read_df(Rcpp::DataFrame const &input_df)
+{
+  std::string col_gene_id="geneID";
+  std::string col_data="coefficients";
+  std::string col_pvalues="Pvals";
+
+  cout << "R_read_df(...)" << endl;
+
+  int found_geneids=0;
+
+  // preallocate arrays to match the library
+  cout << "Preallocate:" << data_matrix.n_rows << endl;
+  t_input input(data_matrix.n_rows);
+  t_input input_weights(data_matrix.n_rows);
+  t_input_included input_included(data_matrix.n_rows);
+
+  t_input input_src(0);
+  t_input input_weights_src(0);
+  t_input_included input_map(0);
+
+  if (!input_df.containsElementNamed(col_gene_id.c_str())) {
+    cerr << "Missing gene id column in the input df: " << col_gene_id << endl;
+    return NULL;
+  }
+  IntegerVector input_gene_ids = input_df[col_gene_id];
+
+  if (!input_df.containsElementNamed(col_data.c_str())) {
+    cerr << "Missing expression levels column in the input df: " << col_data << endl;
+    return NULL;
+  }
+  NumericVector input_data     = input_df[col_data];
+
+  if (!input_df.containsElementNamed(col_pvalues.c_str())) {
+    cerr << "Missing p values column in the input df: " << col_pvalues << endl;
+    return NULL;
+  }
+  NumericVector input_pvalues  = input_df[col_pvalues];
+
+
+  std::vector<int>    stdvec_input_gene_ids  = as<std::vector<int> >(input_gene_ids);
+  std::vector<double> stdvec_input_data      = as<std::vector<double> >(input_data);
+  std::vector<double> stdvec_input_pvalues   = as<std::vector<double> >(input_pvalues);
+
+  int res = read_input_mem(data_matrix.gene_ids,
+                          &stdvec_input_gene_ids, &stdvec_input_data, &stdvec_input_pvalues,
+                          &input, &input_weights, &input_included, &found_geneids,
+                          &input_src, &input_weights_src, &input_map);
+
+  if (res == 1 ) {
+     return 1;
+  }
+
+  List df = List::create(
+        Named("found_geneids") = found_geneids,
+        _("input") = input,
+        _("input_weights") = input_weights,
+        _("input_included") = input_included,
+        _("input_src") = input_src,
+        _("input_weights_src") = input_weights_src,
+        _("input_map") = input_map
+        );
+   return df;
+}
+
 List iLincsCor::R_read_input(std::string input_filename){
 
   cout << "R_read_input(" << input_filename << ")" << endl;

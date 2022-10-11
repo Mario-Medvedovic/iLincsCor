@@ -4,9 +4,9 @@
 \name{iLincsCor-package}
 \alias{iLincsCor}
 \alias{iLincsCor-package}
-\title{iLincsCor: What the Package Does in One 'Title Case' Line}
+\title{iLincsCor: Fast signature correlations}
 \description{
-One paragraph description of what the package does as one or more full sentences.
+Load signature libraries to memory to perform fast correlation with one or multiple inputs.
 }
 \details{
 iLincsCor is a package containing iLincsCor class for fast signature 

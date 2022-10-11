@@ -15,7 +15,8 @@ t_output cor_map(t_input input, t_input input_weights, t_input_map input_map, t_
    gettimeofday(&start_time, NULL);
 
    t_output each_result;
-   long n_rows=input_map.size();
+   long n_rows=data_matrix->n_rows;
+   long n_input_len=input_map.size();
    long n_cols=data_matrix->n_cols;
    if (n_cols==0 || n_rows==0) 
    {
@@ -48,7 +49,7 @@ t_output cor_map(t_input input, t_input input_weights, t_input_map input_map, t_
       // no user weights:: since we don't know which elements are included
 
       // omp on this level makes things lot worse
-      for (long j = 0; j < n_rows; j++) 
+      for (long j = 0; j < n_input_len; j++) 
       {
 	 PRECISION _libvec = data_matrix->data[block + input_map[j]]; // xi
          PRECISION _input = input[j];                                 // yi
@@ -87,11 +88,13 @@ t_output cor_map(t_input input, t_input input_weights, t_input_map input_map, t_
       block += n_rows;
    }
 
+   /*
    struct timeval end_time;
    double delta_time;
    gettimeofday(&end_time, NULL);
    delta_time = (double) (end_time.tv_sec - start_time.tv_sec);
    delta_time += (double) (end_time.tv_usec - start_time.tv_usec) / 1.0e+6;
+   */
 
    // cerr << "cor finished (" << delta_time << "s)" << endl;
    // cerr << "output: " << each_result[0] << ", " << each_result[1] << endl;
