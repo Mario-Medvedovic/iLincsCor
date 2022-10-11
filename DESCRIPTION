@@ -8,7 +8,7 @@ Maintainer: Michal Kouril <Michal.Kouril@cchmc.org>
 Description: Load signature libraries to memory to perform fast correlation
         with one or multiple inputs.
 License: GPL (>= 2)
-Imports: Rcpp (>= 1.0.9)
+Imports: Rcpp (>= 1.0.8)
 Suggests: 
     methods,
     testthat (>= 3.0.0)
