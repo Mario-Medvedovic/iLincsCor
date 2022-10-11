@@ -20,15 +20,15 @@ int read_input_mem(std::vector<int> gene_ids,
    std::fill((*input_weights).begin(), (*input_weights).end(), 0);
    std::fill((*input_included).begin(), (*input_included).end(), 0);
    int n_rows = input->size();
-   for(int i = 1; i < n && i <= n_rows; i++){
+   for(int i = 0; i < n && i < n_rows; i++){
       // DEBUG(cerr << "Converting " << input_vec_vec[i][LogDiffExp_column] << " at line " << i << " column " << LogDiffExp_column << endl;)
 
-      int gene_position=i-1;
+      int gene_position=i;
 
-      PRECISION input_exp = (*input_data)[i-1];
-      PRECISION input_pvalue = (*input_pvalues)[i-1];
+      PRECISION input_exp = (*input_data)[i];
+      PRECISION input_pvalue = (*input_pvalues)[i];
       input_pvalue = -1*log10(input_pvalue);
-      int gene_id = (*input_gene_ids)[i-1];
+      int gene_id = (*input_gene_ids)[i];
       // shortcut
       if (gene_id != gene_ids[gene_position]) {
 
@@ -36,6 +36,7 @@ int read_input_mem(std::vector<int> gene_ids,
             std::vector<int>::iterator it = std::find(gene_ids.begin(), gene_ids.end(), gene_id);
             if (it == gene_ids.end()) {
                gene_position = -1; // can't find gene_id
+               cout << "Can't find geneid " << gene_id << endl;
             } else {
                gene_position = std::distance(gene_ids.begin(), it);
             }
