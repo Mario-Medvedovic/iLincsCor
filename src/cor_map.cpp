@@ -51,7 +51,7 @@ t_output cor_map(t_input input, t_input input_weights, t_input_map input_map, t_
       // omp on this level makes things lot worse
       for (long j = 0; j < n_input_len; j++) 
       {
-	 PRECISION _libvec = data_matrix->data[block + input_map[j]]; // xi
+	     PRECISION _libvec = data_matrix->data[block + input_map[j]]; // xi
          PRECISION _input = input[j];                                 // yi
          PRECISION _weight = (data_matrix->weight[block + input_map[j]] + input_weights[j]); // wi
          // PRECISION _weight = input_included[j] * (data_matrix->weight[block + j]); // no weights
@@ -60,8 +60,14 @@ t_output cor_map(t_input input, t_input input_weights, t_input_map input_map, t_
          sum_wiyi += _weight * _input; // if not included _input = 0
          sum_wi   += _weight;
 
-	 // record weight so we don't have to check input_included or ->weight in the next for-loop
-	 weight_cache[j] = _weight;
+         if (data_matrix->weight[block + input_map[j]] == 0)
+            _weight = 0;
+
+         if (input_weights[j] == 0)
+            _weight = 0;
+
+	     // record weight so we don't have to check input_included or ->weight in the next for-loop
+	     weight_cache[j] = _weight;
       }
 
       PRECISION m_xw = sum_wixi / sum_wi;

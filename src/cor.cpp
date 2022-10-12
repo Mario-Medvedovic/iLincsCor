@@ -17,7 +17,7 @@ t_output cor(t_input input, t_input input_weights, t_input_included input_includ
    t_output each_result;
    long n_rows=data_matrix->n_rows;
    long n_cols=data_matrix->n_cols;
-   if (n_cols==0 || n_rows==0) 
+   if (n_cols==0 || n_rows==0)
    {
       // cerr << "Matrix not loaded" << endl;
       return each_result;
@@ -25,7 +25,7 @@ t_output cor(t_input input, t_input input_weights, t_input_included input_includ
 
    long each_start=each_start_col*n_rows;
 
-   if (each_n_cols == 0) 
+   if (each_n_cols == 0)
    {
       each_n_cols=n_cols;
    }
@@ -48,12 +48,18 @@ t_output cor(t_input input, t_input input_weights, t_input_included input_includ
       // no user weights:: since we don't know which elements are included
 
       // omp on this level makes things lot worse
-      for (long j = 0; j < n_rows; j++) 
+      for (long j = 0; j < n_rows; j++)
       {
-	 PRECISION _libvec = data_matrix->data[block + j]; // xi
+	       PRECISION _libvec = data_matrix->data[block + j]; // xi
          PRECISION _input = input[j];                      // yi
          PRECISION _weight = input_included[j] * (data_matrix->weight[block + j] + input_weights[j]); // wi
          // PRECISION _weight = input_included[j] * (data_matrix->weight[block + j]); // no weights
+
+         if (data_matrix->weight[block + j] == 0)
+           _weight = 0;
+
+         if (input_weights[j] == 0)
+           _weight = 0;
 
          sum_wixi += _weight * _libvec;
          sum_wiyi += _weight * _input; // if not included _input = 0
