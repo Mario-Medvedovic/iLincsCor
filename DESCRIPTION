@@ -12,6 +12,8 @@ Imports: Rcpp (>= 1.0.8)
 Suggests: 
     methods,
     testthat (>= 3.0.0)
+Depends:
+    R (>= 4.2.0)
 LinkingTo: Rcpp
 RoxygenNote: 7.2.1
 SystemRequirements: C++20
