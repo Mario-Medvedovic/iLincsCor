@@ -55,11 +55,13 @@ t_output cor(t_input input, t_input input_weights, t_input_included input_includ
          PRECISION _weight = input_included[j] * (data_matrix->weight[block + j] + input_weights[j]); // wi
          // PRECISION _weight = input_included[j] * (data_matrix->weight[block + j]); // no weights
 
-         if (data_matrix->weight[block + j] == 0)
-           _weight = 0;
+// Modified by Behrouz
+         //if (data_matrix->weight[block + j] == 0)
+           //_weight = 0;
 
-         if (input_weights[j] == 0)
-           _weight = 0;
+         //if (input_weights[j] == 0)
+           //_weight = 0;
+// End of modified by Behrouz
 
          sum_wixi += _weight * _libvec;
          sum_wiyi += _weight * _input; // if not included _input = 0
